@@ -1,0 +1,1 @@
+export { default as factoryDB } from './factory.app'

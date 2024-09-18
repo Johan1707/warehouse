@@ -1,3 +1,7 @@
 {
-    
+    "error": {
+        "createRecord": "Error creating record in the system",
+        "duplicateRecord": "Record duplicated in the system",
+        "parentMenuValidate": "Error on validate parent menu"
+    }
 }

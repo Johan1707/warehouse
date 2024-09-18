@@ -1,7 +1,7 @@
 import type { Prisma, PrismaClient, Menu } from '@prisma/client'
+import type { StatusCode } from 'hono/utils/http-status'
 
-import { MenuResponse } from '@/types'
-import { StatusCode } from 'hono/utils/http-status'
+import type { MenuResponse } from '@/types'
 
 const menuSelect: Prisma.MenuSelect = {
     id: true,
@@ -38,7 +38,7 @@ export const createMenuService = async (db: PrismaClient, values: Menu): Promise
         if(exists) return [{ message: 'error.duplicateRecord', status: 400 as StatusCode }, null]
 
         if(values.menu_id) {                      
-            const existsId = await validateParentMenu(db, values.menu_id)
+            const existsId: boolean = await validateParentMenu(db, values.menu_id)
             if(!existsId) return [{ message: 'error.parentMenuValidate', status: 400 as StatusCode }, null]
         }
 

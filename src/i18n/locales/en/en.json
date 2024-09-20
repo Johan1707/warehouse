@@ -3,6 +3,7 @@
         "createRecord": "Error creating record in the system",
         "duplicateRecord": "Record duplicated in the system",
         "parentMenuValidate": "Error on validate parent menu",
-        "recordNotFound": "Record does not exist in the system"
+        "recordNotFound": "Record does not exist in the system",
+        "updateRecord": "Error updating record in the system"
     }
 }

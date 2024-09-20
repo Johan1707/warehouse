@@ -17,3 +17,7 @@ export type errorResponse = {
 }
 
 export type MenuResponse = [errorResponse | null, Menu | Menu[] | null]
+
+export type IdParam = {
+    id: number
+}

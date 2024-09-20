@@ -62,7 +62,7 @@ export const getAllMenusService = async (db: PrismaClient): Promise<MenuResponse
     }
 }
 
-export const getMenuByIdService = async (db: PrismaClient, id: Menu): Promise<MenuResponse> => {
+export const getMenuByIdService = async (db: PrismaClient, id: { id: number }): Promise<MenuResponse> => {
     try {        
         const menu: Menu | null = await db.menu.findUnique({ where: id, select: menuSelect })
         if(!menu) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]

@@ -2,6 +2,7 @@
     "error": {
         "createRecord": "Error al crear registro en el sistema",
         "duplicateRecord": "Registro duplicado en el sistema",
-        "parentMenuValidate": "Error al validar el menú principal"
+        "parentMenuValidate": "Error al validar el menú principal",
+        "recordNotFound": "El registro no existe en el sistema"
     }
 }

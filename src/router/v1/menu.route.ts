@@ -8,7 +8,8 @@ import {
     createMenuHandler,
     getAllMenusHandler,
     getMenuByIdHandler,
-    updateMenuHandler
+    updateMenuHandler,
+    deleteMenuHandler
 } from '@/handlers'
 
 export const appMenu: Hono<Env> = factoryDB.createApp().basePath('/menus')
@@ -18,3 +19,4 @@ appMenu
     .get('/', ...getAllMenusHandler)
     .get('/', validateRequest('param', IdSchema), ...getMenuByIdHandler)
     .put('/:id', validateRequest('param', IdSchema), validateRequest('json', UpdateMenuSchema), ...updateMenuHandler)
+    .delete('/:id', validateRequest('param', IdSchema), ...deleteMenuHandler)

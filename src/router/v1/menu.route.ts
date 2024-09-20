@@ -7,7 +7,8 @@ import { CreateMenuSchema, IdSchema, UpdateMenuSchema } from '@/schemas'
 import {
     createMenuHandler,
     getAllMenusHandler,
-    getMenuByIdHandler
+    getMenuByIdHandler,
+    updateMenuHandler
 } from '@/handlers'
 
 export const appMenu: Hono<Env> = factoryDB.createApp().basePath('/menus')
@@ -16,3 +17,4 @@ appMenu
     .post('/', validateRequest('json', CreateMenuSchema), ...createMenuHandler)
     .get('/', ...getAllMenusHandler)
     .get('/', validateRequest('param', IdSchema), ...getMenuByIdHandler)
+    .put('/:id', validateRequest('param', IdSchema), validateRequest('json', UpdateMenuSchema), ...updateMenuHandler)

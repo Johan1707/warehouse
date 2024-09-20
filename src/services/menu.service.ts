@@ -105,3 +105,17 @@ export const updateMenuService = async (db: PrismaClient, id: IdParam, values: M
         return [{ message: 'error.updateRecord', status: 400 as StatusCode }, null]
     }
 }
+
+export const deleteMenuService = async (db: PrismaClient, id: IdParam): Promise<MenuResponse> => {
+    try {        
+        const exist: number = await db.menu.count({ where: id })
+
+        if(!exist) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
+
+        const menu: Menu = await db.menu.delete({ where: id })
+        
+        return [null, menu]
+    } catch {
+        return [{ message: 'error.deleteRecord', status: 400 as StatusCode }, null]
+    }
+}

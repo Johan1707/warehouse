@@ -8,7 +8,8 @@ import {
     createMenuService,
     getAllMenusService,
     getMenuByIdService,
-    updateMenuService
+    updateMenuService,
+    deleteMenuService
 } from '@/services'
 import type { Env, IdParam, MenuResponse } from '@/types'
 
@@ -35,7 +36,7 @@ export const getAllMenusHandler = factoryDB.createHandlers(async (c: Context<Env
     return c.json(menus, 200 as StatusCode)
 })
 
-export const getMenuByIdHandler = factoryDB.createHandlers(async (c: Context<Env>) => {
+export const getMenuByIdHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
     const t = useTranslation(c)
     const id: IdParam = c.req.valid(('param') as never)
     const [error, menu]: MenuResponse = await getMenuByIdService(c.var.db, id)
@@ -47,7 +48,7 @@ export const getMenuByIdHandler = factoryDB.createHandlers(async (c: Context<Env
     return c.json(menu, 200 as StatusCode)
 })
 
-export const updateMenuHandler = factoryDB.createHandlers(async (c: Context<Env>) => {
+export const updateMenuHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
     const t = useTranslation(c)
     const id: IdParam = c.req.valid(('param') as never)
     const register: Menu = c.req.valid(('json') as never)
@@ -58,4 +59,16 @@ export const updateMenuHandler = factoryDB.createHandlers(async (c: Context<Env>
     }
 
     return c.json(menu, 200 as StatusCode)
+})
+
+export const deleteMenuHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
+    const t = useTranslation(c)
+    const id: IdParam = c.req.valid(('param') as never)
+    const [error, removed]: MenuResponse = await deleteMenuService(c.var.db, id)
+    
+    if(error) {
+        return c.json({ message: t(error.message) }, error.status as StatusCode)
+    }
+
+    return c.json(removed, 200 as StatusCode)
 })

@@ -28,3 +28,38 @@ model Menu {
   @@unique([title, route, menu_id])
   @@map("menus")
 }
+
+model Role {
+  id        Int      @id @unique @default(autoincrement())
+  name      String   @unique
+  isAdmin   Boolean  @default(false) @map("is_admin")
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  createdBy Int?     @map("created_by")
+  updateAt  DateTime @updatedAt @map("update_at")
+  updateBy  Int?     @map("update_by")
+  User      User[]
+
+  @@map("roles")
+}
+
+model User {
+  id        Int       @id @unique @default(autoincrement())
+  username  String    @unique
+  password  String
+  firstName String    @map("first_name")
+  lastName  String    @map("last_name")
+  email     String    @unique
+  attempts  Int       @default(0)
+  roleId    Int       @map("role_id")
+  lastSeen  DateTime? @map("last_seen")
+  token     String?
+  active    Boolean   @default(true)
+  createdAt DateTime  @default(now()) @map("created_at")
+  createdBy Int?      @map("created_by")
+  updateAt  DateTime  @updatedAt @map("update_at")
+  updateBy  Int?      @map("update_by")
+  role      Role      @relation(fields: [roleId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("users")
+}

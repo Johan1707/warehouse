@@ -9,6 +9,7 @@
     "@intlify/hono": "^0.1.1",
     "@prisma/adapter-d1": "^5.19.1",
     "@prisma/client": "^5.19.1",
+    "@types/node": "^22.7.6",
     "hono": "^4.6.1",
     "valibot": "^0.42.0"
   },

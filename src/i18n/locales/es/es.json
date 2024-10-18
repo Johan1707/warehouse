@@ -1,8 +1,12 @@
 {
+    "menu": {
+        "error": {
+            "parentMenuValidate": "Error al validar el menú principal"
+        }
+    },
     "error": {
         "createRecord": "Error al crear registro en el sistema",
         "duplicateRecord": "Registro duplicado en el sistema",
-        "parentMenuValidate": "Error al validar el menú principal",
         "recordNotFound": "El registro no existe en el sistema",
         "updateRecord": "Error al actualizar registro en el sistema",
         "deleteRecord": "Error al eliminar registro en el sistema"

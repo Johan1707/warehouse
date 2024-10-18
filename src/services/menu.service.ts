@@ -39,7 +39,7 @@ export const createMenuService = async (db: PrismaClient, values: Menu): Promise
 
         if(values.menu_id) {                      
             const existsId: boolean = await validateParentMenu(db, values.menu_id)
-            if(!existsId) return [{ message: 'error.parentMenuValidate', status: 400 as StatusCode }, null]
+            if(!existsId) return [{ message: 'menu.error.parentMenuValidate', status: 400 as StatusCode }, null]
         }
 
         const menu: Menu = await db.menu.create({
@@ -91,7 +91,7 @@ export const updateMenuService = async (db: PrismaClient, id: IdParam, values: M
 
         if(values.menu_id) {                      
             const existsId: boolean = await validateParentMenu(db, values.menu_id)
-            if(!existsId) return [{ message: 'error.parentMenuValidate', status: 400 as StatusCode }, null]
+            if(!existsId) return [{ message: 'menu.error.parentMenuValidate', status: 400 as StatusCode }, null]
         }
 
         const menu: Menu | null = await db.menu.update({

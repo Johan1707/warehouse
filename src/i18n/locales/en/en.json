@@ -1,8 +1,12 @@
 {
+    "menu": {
+        "error": {
+            "parentMenuValidate": "Error on validate parent menu"
+        }
+    },
     "error": {
         "createRecord": "Error creating record in the system",
-        "duplicateRecord": "Record duplicated in the system",
-        "parentMenuValidate": "Error on validate parent menu",
+        "duplicateRecord": "Record duplicated in the system",        
         "recordNotFound": "Record does not exist in the system",
         "updateRecord": "Error updating record in the system",
         "deleteRecord": "Error deleting record in the system"

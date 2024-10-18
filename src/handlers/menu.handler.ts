@@ -1,7 +1,6 @@
 import type { Context } from 'hono'
 import { useTranslation } from '@intlify/hono'
 import type { StatusCode } from 'hono/utils/http-status'
-import type { Menu } from '@prisma/client'
 
 import { factoryDB } from '@/app'
 import {
@@ -11,11 +10,17 @@ import {
     updateMenuService,
     deleteMenuService
 } from '@/services'
-import type { Env, IdParam, MenuResponse } from '@/types'
+import type {
+    Env,
+    IdParam,
+    MenuResponse,
+    MenusResponse
+} from '@/types'
+import type { CreateMenuOutput, UpdateMenuOutput } from '@/schemas'
 
 export const createMenuHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
     const t = useTranslation(c)
-    const register: Menu = c.req.valid(('json') as never)
+    const register: CreateMenuOutput = c.req.valid(('json') as never)
     const [error, menu]: MenuResponse = await createMenuService(c.var.db, register)
 
     if(error) {
@@ -27,7 +32,7 @@ export const createMenuHandler = factoryDB.createHandlers(async (c: Context<Env>
 
 export const getAllMenusHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
     const t = useTranslation(c)
-    const [error, menus]: MenuResponse = await getAllMenusService(c.var.db)
+    const [error, menus]: MenusResponse = await getAllMenusService(c.var.db)
 
     if(error) {
         return c.json({ message: t(error.message) }, error.status as StatusCode)
@@ -51,7 +56,7 @@ export const getMenuByIdHandler = factoryDB.createHandlers(async (c: Context<Env
 export const updateMenuHandler = factoryDB.createHandlers(async (c: Context<Env>): Promise<Response> => {
     const t = useTranslation(c)
     const id: IdParam = c.req.valid(('param') as never)
-    const register: Menu = c.req.valid(('json') as never)
+    const register: UpdateMenuOutput = c.req.valid(('json') as never)
     const [error, menu]: MenuResponse = await updateMenuService(c.var.db, id, register)
 
     if(error) {

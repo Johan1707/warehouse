@@ -1,5 +1,6 @@
 import {
     boolean,
+    InferOutput,
     maxLength,
     minLength,
     nonEmpty,
@@ -33,6 +34,8 @@ export const CreateMenuSchema = object({
     active: boolean()
 })
 
+export type CreateMenuOutput = InferOutput<typeof CreateMenuSchema>
+
 export const UpdateMenuSchema = object({
     title: optional(
         pipe(
@@ -60,3 +63,5 @@ export const UpdateMenuSchema = object({
     menu_id: optional( number() ),
     active: optional( boolean() )
 })
+
+export type UpdateMenuOutput = InferOutput<typeof UpdateMenuSchema>

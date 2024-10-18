@@ -1,7 +1,8 @@
 import type { Prisma, PrismaClient, Menu } from '@prisma/client'
 import type { StatusCode } from 'hono/utils/http-status'
 
-import type { MenuResponse, IdParam } from '@/types'
+import type { MenuResponse, IdParam, MenusResponse } from '@/types'
+import type { CreateMenuOutput, UpdateMenuOutput } from '@/schemas'
 
 const menuSelect: Prisma.MenuSelect = {
     id: true,
@@ -24,7 +25,7 @@ const validateParentMenu = async (db: PrismaClient, menuId: number): Promise<boo
     return !!existsId
 }
 
-export const createMenuService = async (db: PrismaClient, values: Menu): Promise<MenuResponse> => {
+export const createMenuService = async (db: PrismaClient, values: CreateMenuOutput): Promise<MenuResponse> => {
     try {        
         const exists: number = await db.menu.count({
             where: {
@@ -53,7 +54,7 @@ export const createMenuService = async (db: PrismaClient, values: Menu): Promise
     }
 }
 
-export const getAllMenusService = async (db: PrismaClient): Promise<MenuResponse> => {
+export const getAllMenusService = async (db: PrismaClient): Promise<MenusResponse> => {
     try {
         const menus: Menu[] | null[] = await db.menu.findMany({ select: menuSelect })
         return [null, menus]
@@ -72,7 +73,7 @@ export const getMenuByIdService = async (db: PrismaClient, id: IdParam): Promise
     }
 }
 
-export const updateMenuService = async (db: PrismaClient, id: IdParam, values: Menu): Promise<MenuResponse> => {
+export const updateMenuService = async (db: PrismaClient, id: IdParam, values: UpdateMenuOutput): Promise<MenuResponse> => {
     try {
         const exist: number = await db.menu.count({ where: id })
         if(!exist) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
@@ -94,7 +95,7 @@ export const updateMenuService = async (db: PrismaClient, id: IdParam, values: M
             if(!existsId) return [{ message: 'menu.error.parentMenuValidate', status: 400 as StatusCode }, null]
         }
 
-        const menu: Menu | null = await db.menu.update({
+        const menu: Menu = await db.menu.update({
             where: id,
             data: values,
             select: menuSelect

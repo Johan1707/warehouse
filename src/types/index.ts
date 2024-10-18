@@ -11,13 +11,18 @@ export type Env = {
     }
 }
 
-export type errorResponse = {
+export type IdParam = {
+    id: number
+}
+export type StructureError = {
 	message: string
 	status: StatusCode
 }
 
-export type MenuResponse = [errorResponse | null, Menu | Menu[] | null]
+export type SuccessResponse<M> = [null, M]
+export type ErrorResponse = [StructureError, null]
+export type ResponseType<T> = T extends ErrorResponse ? ErrorResponse : T;
+export type ServiceResponseType<T> = ResponseType<SuccessResponse<T> | ErrorResponse>
 
-export type IdParam = {
-    id: number
-}
+export type MenuResponse = ServiceResponseType<Menu>
+export type MenusResponse = ServiceResponseType<Menu[]>

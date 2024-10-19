@@ -36,3 +36,5 @@ export interface UserWithRole extends User {
 }
 
 export type AuthResponse = ServiceResponseType<UserWithRole>
+export type UserResponse = ServiceResponseType<User>
+export type UsersResponse = ServiceResponseType<User[]>

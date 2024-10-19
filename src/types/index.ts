@@ -1,5 +1,4 @@
-import type { Menu } from '@prisma/client'
-import type { PrismaClient } from '@prisma/client'
+import type { Menu, PrismaClient, Role, User } from '@prisma/client'
 import type { StatusCode } from 'hono/utils/http-status'
 
 export type Env = {
@@ -26,3 +25,14 @@ export type ServiceResponseType<T> = ResponseType<SuccessResponse<T> | ErrorResp
 
 export type MenuResponse = ServiceResponseType<Menu>
 export type MenusResponse = ServiceResponseType<Menu[]>
+
+export type AuthInputType = {
+	email: string
+	password: string
+}
+
+export interface UserWithRole extends User {
+	role: Role
+}
+
+export type AuthResponse = ServiceResponseType<UserWithRole>

@@ -1,4 +1,10 @@
 {
+    "auth": {
+        "error": {
+            "inactiveUser": "Inactive user",
+            "userBlocked": "Blocked user please contact administrator"
+        }
+    },
     "menu": {
         "error": {
             "parentMenuValidate": "Error on validate parent menu"

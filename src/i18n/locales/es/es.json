@@ -2,7 +2,8 @@
     "auth": {
         "error": {
             "inactiveUser": "Usuario inactivo",
-            "userBlocked": "Usuario bloqueado contacte con el administrador"
+            "userBlocked": "Usuario bloqueado contacte con el administrador",
+            "unauthorizedUser": "Usuario no autorizado en el sistema"
         }
     },
     "menu": {
@@ -15,6 +16,9 @@
         "duplicateRecord": "Registro duplicado en el sistema",
         "recordNotFound": "El registro no existe en el sistema",
         "updateRecord": "Error al actualizar registro en el sistema",
-        "deleteRecord": "Error al eliminar registro en el sistema"
+        "deleteRecord": "Error al eliminar registro en el sistema",
+        "onBadJson": "Error con el formato enviado",
+        "notFound": "La ruta no fue encontrada",
+        "unkwon": "Error de servidor desconocido"
     }
 }

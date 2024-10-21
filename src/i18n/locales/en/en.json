@@ -2,7 +2,8 @@
     "auth": {
         "error": {
             "inactiveUser": "Inactive user",
-            "userBlocked": "Blocked user please contact administrator"
+            "userBlocked": "Blocked user please contact administrator",
+            "unauthorizedUser": "Unauthorized user in the system"
         }
     },
     "menu": {
@@ -15,6 +16,9 @@
         "duplicateRecord": "Record duplicated in the system",        
         "recordNotFound": "Record does not exist in the system",
         "updateRecord": "Error updating record in the system",
-        "deleteRecord": "Error deleting record in the system"
+        "deleteRecord": "Error deleting record in the system",
+        "onBadJson": "Error with the format sent",
+        "notFound": "The route was not found",
+        "unkwon": "Unknow server error"
     }
 }

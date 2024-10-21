@@ -2,4 +2,5 @@
 // After adding bindings to `wrangler.toml`, regenerate this interface via `npm run cf-typegen`
 interface CloudflareBindings {
     DB: D1Database;
+    JWT_KEY: string;
 }

@@ -13,6 +13,8 @@
     },
     "error": {
         "createRecord": "Error creating record in the system",
+        "queryRecords": "Error querying records in the system",
+        "queryRecord": "Error querying record in the system",
         "duplicateRecord": "Record duplicated in the system",        
         "recordNotFound": "Record does not exist in the system",
         "updateRecord": "Error updating record in the system",

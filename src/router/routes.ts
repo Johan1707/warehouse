@@ -6,16 +6,16 @@ import type { StatusCode } from 'hono/utils/http-status'
 import { appV1 } from './v1'
 
 
-export const appMain = new Hono()
+export const app = new Hono()
 
-appMain.route('/', appV1)
+app.route('/', appV1)
 
-appMain.notFound((c) => {
+app.notFound((c) => {
     const t = useTranslation(c)
     return c.json({ message: t('error.notFound' as string) } as object, 404 as StatusCode)
 })
 
-appMain.onError((error, c) => {
+app.onError((error, c) => {
     const t = useTranslation(c)
     if(error instanceof HTTPException) {
         if (error.message.includes('Malformed JSON')) {

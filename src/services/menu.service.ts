@@ -1,8 +1,8 @@
 import type { Prisma, PrismaClient, Menu } from '@prisma/client'
 import type { StatusCode } from 'hono/utils/http-status'
 
-import type { MenuResponse, IdParam, MenusResponse } from '@/types'
-import type { CreateMenuOutput, UpdateMenuOutput } from '@/schemas'
+import type { MenuResponse, MenusResponse } from '@/types'
+import type { CreateMenuOutput, IdOutput, UpdateMenuOutput } from '@/schemas'
 
 const menuSelect: Prisma.MenuSelect = {
     id: true,
@@ -59,21 +59,21 @@ export const getAllMenusService = async (db: PrismaClient): Promise<MenusRespons
         const menus: Menu[] | null[] = await db.menu.findMany({ select: menuSelect })
         return [null, menus]
     } catch {
-        return [{ message: 'error.createRecord', status: 400 as StatusCode }, null]
+        return [{ message: 'error.queryRecords', status: 400 as StatusCode }, null]
     }
 }
 
-export const getMenuByIdService = async (db: PrismaClient, id: IdParam): Promise<MenuResponse> => {
+export const getMenuByIdService = async (db: PrismaClient, id: IdOutput): Promise<MenuResponse> => {
     try {        
         const menu: Menu | null = await db.menu.findUnique({ where: id, select: menuSelect })
         if(!menu) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
         return [null, menu]
     } catch {
-        return [{ message: 'error.createRecord', status: 400 as StatusCode }, null]
+        return [{ message: 'error.queryRecord', status: 400 as StatusCode }, null]
     }
 }
 
-export const updateMenuService = async (db: PrismaClient, id: IdParam, values: UpdateMenuOutput): Promise<MenuResponse> => {
+export const updateMenuService = async (db: PrismaClient, id: IdOutput, values: UpdateMenuOutput): Promise<MenuResponse> => {
     try {
         const exist: number = await db.menu.count({ where: id })
         if(!exist) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
@@ -107,7 +107,7 @@ export const updateMenuService = async (db: PrismaClient, id: IdParam, values: U
     }
 }
 
-export const deleteMenuService = async (db: PrismaClient, id: IdParam): Promise<MenuResponse> => {
+export const deleteMenuService = async (db: PrismaClient, id: IdOutput): Promise<MenuResponse> => {
     try {        
         const exist: number = await db.menu.count({ where: id })
 

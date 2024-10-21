@@ -6,8 +6,8 @@ import type {
 import type { StatusCode } from 'hono/utils/http-status'
 
 import { base64Decode, passwordHash } from '@/libs'
-import type { CreateUserOutput, UpdateUserOutput } from '@/schemas'
-import type { IdParam, UserResponse, UsersResponse } from '@/types'
+import type { CreateUserOutput, IdOutput, UpdateUserOutput } from '@/schemas'
+import type { UserResponse, UsersResponse } from '@/types'
 
 const userSelect: Prisma.UserSelect = {
     id: true,
@@ -27,7 +27,7 @@ export const createUserService = async (db: PrismaClient, values: CreateUserOutp
                 ]
             }
         })
-        if(exists) return [{ message: 'record_duplicated', status: 400 as StatusCode }, null]
+        if(exists) return [{ message: 'error.duplicateRecord', status: 400 as StatusCode }, null]
 
         const password: string = base64Decode(values.password)
         values.password = await passwordHash(password)
@@ -35,9 +35,8 @@ export const createUserService = async (db: PrismaClient, values: CreateUserOutp
         const user: User = await db.user.create({ data: values, select: userSelect })
 
         return [null, user]
-    } catch(e) {
-        console.log(e)
-        return [{ message: 'error_creating_record', status: 400 as StatusCode }, null]
+    } catch {
+        return [{ message: 'error.createRecord', status: 400 as StatusCode }, null]
     }
 }
 
@@ -46,24 +45,24 @@ export const getAllUsersService = async (db: PrismaClient): Promise<UsersRespons
         const users: User[] = await db.user.findMany({ select: userSelect })
         return [null, users]
     } catch {
-        return [{ message: 'hello.world', status: 400 as StatusCode }, null]
+        return [{ message: 'error.queryRecords', status: 400 as StatusCode }, null]
     }
 }
 
-export const getUserByIdService = async (db: PrismaClient, id: IdParam): Promise<UserResponse> => {
+export const getUserByIdService = async (db: PrismaClient, id: IdOutput): Promise<UserResponse> => {
     try {        
         const user: User | null = await db.user.findUnique({ where: id, select: userSelect })
         if(!user) return [{ message: 'record_not_exist', status: 404 as StatusCode }, null]
         return [null, user]
     } catch {
-        return [{ message: 'error_creating_record', status: 400 as StatusCode }, null]
+        return [{ message: 'error.queryRecord', status: 400 as StatusCode }, null]
     }
 }
 
-export const updateUserService = async (db: PrismaClient, id: IdParam, values: UpdateUserOutput): Promise<UserResponse> => {
+export const updateUserService = async (db: PrismaClient, id: IdOutput, values: UpdateUserOutput): Promise<UserResponse> => {
     try {
         const exist: number = await db.user.count({ where: id })
-        if(!exist) return [{ message: 'record_not_exist', status: 404 as StatusCode }, null]
+        if(!exist) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
 
         const user: User = await db.user.update({
             where: id,
@@ -73,19 +72,19 @@ export const updateUserService = async (db: PrismaClient, id: IdParam, values: U
 
         return [null, user]
     } catch {
-        return [{ message: 'error_updating_record', status: 400 as StatusCode }, null]
+        return [{ message: 'error.updateRecord', status: 400 as StatusCode }, null]
     }
 }
 
-export const deleteUserService = async (db: PrismaClient, id: IdParam): Promise<UserResponse> => {
+export const deleteUserService = async (db: PrismaClient, id: IdOutput): Promise<UserResponse> => {
     try {        
         const exist: number = await db.user.count({ where: id })
-        if(!exist) return [{ message: 'record_not_exist', status: 404 as StatusCode }, null]
+        if(!exist) return [{ message: 'error.recordNotFound', status: 404 as StatusCode }, null]
 
         const user: User = await db.user.delete({ where: id, select: userSelect })
         
         return [null, user]
     } catch {
-        return [{ message: 'error_deleting_record', status: 400 as StatusCode }, null]
+        return [{ message: 'error.deleteRecord', status: 400 as StatusCode }, null]
     }
 }

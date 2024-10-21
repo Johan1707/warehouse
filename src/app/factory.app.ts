@@ -1,7 +1,7 @@
-import { createFactory } from 'hono/factory'
-import { PrismaClient } from '@prisma/client'
 import { PrismaD1 } from '@prisma/adapter-d1'
-import type { Context, Next, Hono } from 'hono'
+import { PrismaClient } from '@prisma/client'
+import type { Context, Hono, Next } from 'hono'
+import { createFactory } from 'hono/factory'
 
 import type { Env } from '@/types'
 

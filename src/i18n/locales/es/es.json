@@ -13,6 +13,8 @@
     },
     "error": {
         "createRecord": "Error al crear registro en el sistema",
+        "queryRecords": "Error al consultar registros en el sistema",
+        "queryRecord": "Error al consultar registro en el sistema",
         "duplicateRecord": "Registro duplicado en el sistema",
         "recordNotFound": "El registro no existe en el sistema",
         "updateRecord": "Error al actualizar registro en el sistema",

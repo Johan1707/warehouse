@@ -1,13 +1,14 @@
-import { 
+import {
+    InferOutput,
+    integer,
+    minValue,
+    number,
     object,
     pipe,
-    union,
-    number,
     string,
     transform,
-    integer,
-    minValue
- } from 'valibot'
+    union
+} from 'valibot'
 
 export const IdSchema = object({
     id: pipe(
@@ -17,3 +18,5 @@ export const IdSchema = object({
         minValue(1, 'id debe ser mayor o igual a 1'),
     )
 })
+
+export type IdOutput = InferOutput<typeof IdSchema>

@@ -3,7 +3,7 @@ import type { StatusCode } from 'hono/utils/http-status'
 
 import { base64Decode, passwordVerify } from '@/libs'
 import type { AuthResponse, UserWithRole } from '@/types'
-import { AuthOutput } from '@/schemas'
+import type { AuthOutput } from '@/schemas'
 
 const roleSelect: Prisma.RoleSelect = {
     id: true,

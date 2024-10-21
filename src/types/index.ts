@@ -10,9 +10,6 @@ export type Env = {
     }
 }
 
-export type IdParam = {
-    id: number
-}
 export type StructureError = {
 	message: string
 	status: StatusCode
@@ -25,11 +22,6 @@ export type ServiceResponseType<T> = ResponseType<SuccessResponse<T> | ErrorResp
 
 export type MenuResponse = ServiceResponseType<Menu>
 export type MenusResponse = ServiceResponseType<Menu[]>
-
-export type AuthInputType = {
-	email: string
-	password: string
-}
 
 export interface UserWithRole extends User {
 	role: Role
